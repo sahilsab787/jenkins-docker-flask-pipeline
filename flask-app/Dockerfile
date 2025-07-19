@@ -1,16 +1,19 @@
 FROM python:3.8
 
-# set a directory for the app
+# Set working directory
 WORKDIR /usr/src/app
 
-# copy all the files to the container
-COPY . .
+# Copy only requirements first
+COPY requirements.txt ./
 
-# install dependencies
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# tell the port number the container should expose
+# Copy rest of the code
+COPY . .
+
+# Expose port
 EXPOSE 5000
 
-# run the command
+# Run app
 CMD ["python", "./app.py"]
